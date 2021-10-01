@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Evgenii-K/node_js#readme",
   "dependencies": {
     "colors": "^1.4.0",
-    "date-fns": "^2.24.0"
+    "date-fns": "^2.24.0",
+    "validator": "^13.6.0"
   }
 }

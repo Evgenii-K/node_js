@@ -2,6 +2,8 @@ const formatDistanceToNowStrict = require('date-fns/formatDistanceToNowStrict')
 const EventsEmitter = require('events')
 const emitter = new EventsEmitter()
 
+const regDate = /\d{1,4}/g
+
 if (process.argv.length < 3) {
   return console.log('Вы не ввели дату!')
 }
@@ -23,9 +25,9 @@ emitter.on('showDistance', Handler.showDistance)
 emitter.on('endDistance', Handler.endDistance)
 
 const normalizeDate = (date) => {
-  date = date.split('-').reverse()
+  date = date.match(regDate).reverse()
   const year = date[0]
-  const month = date[1] > 11 ? date[1] : `0${date[1]}`
+  const month = date[1] > 9 ? date[1] : `0${+date[1]}`
   const day = date[2].length < 2 ? `0${date[2]}` : date[2]
   const minutes = date[3].length < 2 ? `0${date[3]}` : date[3]
   const hour = date[4].length < 2 ? `0${date[4]}` : date[4]
