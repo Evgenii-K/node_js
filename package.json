@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./Lesson_3/index.js",
+    "start": "node ./Lesson_4/webinar.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +20,7 @@
   "dependencies": {
     "colors": "^1.4.0",
     "date-fns": "^2.24.0",
+    "inquirer": "^8.2.0",
     "validator": "^13.6.0"
   }
 }
