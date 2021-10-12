@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const fs = require('fs');
 const executorDir = process.cwd();
 const inquirer = require('inquirer');
