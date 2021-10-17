@@ -59,13 +59,118 @@
       background: #efefef;
     }
   </style>
+  <script src="https://cdn.socket.io/4.2.0/socket.io.min.js"
+    integrity="sha384-PiBR5S00EtOj2Lto9Uu81cmoyZqR57XcOna1oAuVuIEjzj0wpqDVfD0JA9eXlRsj" crossorigin="anonymous">
+  </script>
 </head>
 
 <body>
-  <ul id="messages"></ul>
+  <ul id="messages">
+    <li>Number of chat client: <span id="numberOfConnections"></span></li>
+  </ul>
   <form id="form" action="">
     <input id="input" autocomplete="off" /><button>Send</button>
   </form>
+
+  <script>
+    const socket = io();
+
+    const form = document.querySelector('#form');
+    const input = document.querySelector('#input');
+    const messages = document.querySelector('#messages');
+    const numberOfConnections = document.querySelector('#numberOfConnections')
+
+    const newClient = () => {
+
+      const name = [
+        'Allen',
+        'Bob',
+        'Carlton',
+        'David',
+        'Ernie',
+        'Foster',
+        'George',
+        'Howard',
+        'Ian',
+        'Jeffery',
+        'Kenneth',
+        'Lawrence',
+        'Michael',
+        'Nathen',
+        'Orson',
+        'Peter',
+        'Quinten',
+        'Reginald',
+        'Stephen',
+        'Thomas',
+        'Morris',
+        'Victor',
+        'Walter',
+        'Xavier',
+        'Charles',
+        'Anthony',
+        'Gordon',
+        'Percy',
+        'Conrad',
+        'Quincey',
+        'Armand',
+        'Jamal',
+        'Andrew',
+        'Matthew',
+        'Mark',
+        'Gerald',
+      ];
+
+      return name[Math.floor(Math.random() * (name.length - 1))];
+    };
+
+    const clientName = newClient();
+
+    const addMessage = ({
+      message,
+      name = ''
+    }) => {
+      const li = document.createElement('li');
+      li.textContent = `${name}: ${message}`;
+      messages.appendChild(li);
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      if (input.value) {
+        socket.emit('chat message', {
+          message: input.value,
+          name: clientName
+        });
+        input.value = '';
+      }
+    })
+
+    socket.on('server message', (msg) => {
+      addMessage(msg);
+    })
+
+    socket.on('client disconneted', (numberOfClients) => {
+      numberOfConnections.textContent = numberOfClients;
+      const msg = `User disconected`;
+      socket.emit('chat message', {
+        message: msg
+      });
+    })
+
+    socket.on('client conneted', () => {
+      const msg = `${clientName} connected`;
+      socket.emit('chat message', {
+        message: msg
+      });
+    })
+
+    socket.on('number of clients', (numberOfClients) => {
+      numberOfConnections.textContent = numberOfClients;
+    })
+  </script>
 </body>
 
 </html>
