@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node Lesson_2.js",
-    "temp": "node temp.js",
+    "start": "node ./Lesson_3/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
