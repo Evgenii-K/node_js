@@ -15,8 +15,8 @@ const isDirectory = (fileName) => {
 
 const backFolder = (directory) => {
   const reg = /\\/;
-  const foldersInCarrentDir = directory.split(reg);
-  return foldersInCarrentDir.slice(0, foldersInCarrentDir.length - 1).join('\\');
+  const foldersInCurrentDir = directory.split(reg);
+  return foldersInCurrentDir.slice(0, foldersInCurrentDir.length - 1).join('\\');
 };
 
 const list = (directory) => {
